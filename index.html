@@ -427,7 +427,7 @@
     }
     .identity-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: repeat(4, 1fr);
       gap: 0;
       max-width: 1200px;
       margin: 0 auto;
@@ -455,7 +455,13 @@
       color: var(--muted);
       line-height: 1.7;
     }
-    @media (max-width: 768px) {
+    @media (min-width: 641px) and (max-width: 900px) {
+      .identity-grid { grid-template-columns: 1fr 1fr; gap: 32px 0; }
+      .identity-col { padding: 0 24px; }
+      .identity-col:nth-child(odd) { border-left: none; }
+      .identity-col:nth-child(n+3) { border-top: 1px solid var(--border); padding-top: 32px; }
+    }
+    @media (max-width: 640px) {
       .identity-strip { padding: 40px 20px; }
       .identity-grid { grid-template-columns: 1fr; gap: 0; }
       .identity-col + .identity-col { border-left: none; border-top: 1px solid var(--border); padding-top: 32px; margin-top: 32px; }
@@ -1300,6 +1306,13 @@
         </div>
         <div class="identity-title">Magyar konyha</div>
         <div class="identity-text">Vadételek, balatoni halak, házi sütemények, saját pörkölésű kávé</div>
+      </div>
+      <div class="identity-col reveal" style="transition-delay:0.45s;">
+        <div class="identity-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="4.5" cy="3.5" r="1.5"/><circle cx="9" cy="2.5" r="1.5"/><circle cx="15" cy="2.5" r="1.5"/><circle cx="19.5" cy="3.5" r="1.5"/><path d="M12 10c-2.5 0-5 1.5-5 4.5 0 2.5 1 4 2.5 5.5.5.5 1 1.5 1 2.5h3c0-1 .5-2 1-2.5C16 18.5 17 17 17 14.5c0-3-2.5-4.5-5-4.5z"/></svg>
+        </div>
+        <div class="identity-title">Kutyabarát</div>
+        <div class="identity-text">Kedvencedet is szívesen látjuk teraszunkon és kertünkben</div>
       </div>
     </div>
   </div>
