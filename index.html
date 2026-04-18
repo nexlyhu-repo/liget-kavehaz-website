@@ -1,0 +1,2324 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liget Kávéház és Étterem — Balatonalmádi, 1928 óta</title>
+  <meta name="description" content="Közel száz éve fogadjuk vendégeinket az almádi Öregparkban. Magyar konyha, Balaton-parti terasz, rendezvények — 8220 Balatonalmádi, Véghely Dezső u. 1.">
+  <meta property="og:title" content="Liget Kávéház és Étterem">
+  <meta property="og:description" content="1928 óta a Balaton partján.">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Cormorant+SC:wght@400;500&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:         #0D0B08;
+      --surface:    #16130E;
+      --card:       #1C1710;
+      --gold:       #C9A84C;
+      --gold-light: #E8C97A;
+      --cream:      #F2EAD8;
+      --muted:      #8A7F6E;
+      --border:     #2A2218;
+      --white:      #FDFAF4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--cream);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    @media (max-width: 640px) { .container { padding: 0 20px; } }
+
+    section { padding: 120px 0; }
+    @media (max-width: 768px) { section { padding: 80px 0; } }
+
+    /* Reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Gold line */
+    .gold-line {
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      margin: 18px auto 28px;
+      transition: width 1.1s cubic-bezier(0.22,1,0.36,1) 0.2s;
+    }
+    .gold-line.visible { width: 56px; }
+
+    /* Section label */
+    .section-label {
+      font-family: 'Cormorant SC', serif;
+      font-size: 0.72rem;
+      color: var(--gold);
+      letter-spacing: 0.22em;
+      text-align: center;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+    }
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      font-size: clamp(2rem, 3.5vw, 3.8rem);
+      color: var(--white);
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    /* Buttons */
+    .btn-gold {
+      display: inline-block;
+      padding: 14px 32px;
+      background: var(--gold);
+      color: var(--bg);
+      font-family: 'Jost', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: background 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-gold:hover { background: var(--gold-light); }
+
+    .btn-gold-outline {
+      display: inline-block;
+      padding: 13px 32px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: 'Jost', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: background 0.3s, color 0.3s;
+      background: none;
+      cursor: pointer;
+    }
+    .btn-gold-outline:hover { background: rgba(201,168,76,0.1); }
+
+    /* ========== NAVIGATION ========== */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      transition: background 0.5s, border-color 0.5s;
+      border-bottom: 1px solid transparent;
+    }
+    nav.scrolled {
+      background: rgba(13,11,8,0.96);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-color: var(--border);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+    .nav-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .nav-logo-main {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 1.3rem;
+      color: var(--gold);
+      letter-spacing: 0.3em;
+      line-height: 1;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.7);
+    }
+    .nav-logo-sub {
+      font-family: 'Cormorant SC', serif;
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.2em;
+      margin-top: 2px;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.7);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      transition: color 0.3s;
+      position: relative;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.7);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--cream);
+    }
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+    .nav-cta {
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 9px 22px;
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      transition: background 0.3s, color 0.3s;
+      background: none;
+      cursor: pointer;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.7);
+    }
+    .nav-cta:hover {
+      background: var(--gold);
+      color: var(--bg);
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--gold);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    /* Mobile overlay */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 200;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 36px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      font-size: 2.2rem;
+      color: var(--cream);
+      transition: color 0.3s;
+    }
+    .mobile-menu a:hover { color: var(--gold); }
+    .mobile-close {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 2rem;
+      color: var(--gold);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+    }
+
+    @media (max-width: 900px) {
+      .nav-links, .nav-cta-wrap { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      height: 100vh;
+      min-height: 620px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-dots {
+      position: absolute;
+      bottom: 52px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 3;
+    }
+    .hero-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(242,234,216,0.35);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.4s, transform 0.4s;
+    }
+    .hero-dot.active {
+      background: #C9A84C;
+      transform: scale(1.3);
+    }
+    .hero-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 3;
+      background: none;
+      border: none;
+      cursor: pointer;
+      opacity: 0.5;
+      transition: opacity 0.4s ease;
+      padding: 16px;
+    }
+    .hero-arrow:hover { opacity: 1; }
+    .hero-arrow svg {
+      display: block;
+      width: 40px;
+      height: 40px;
+    }
+    .hero-arrow-prev { left: 28px; }
+    .hero-arrow-next { right: 28px; }
+    .hero-bg {
+      position: absolute;
+      inset: -25% 0;
+      z-index: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      will-change: transform;
+      transition: opacity 1.2s ease;
+      filter: brightness(1.08) contrast(1.1) saturate(1.15);
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(
+        to bottom,
+        rgba(13,11,8,0.45) 0%,
+        rgba(13,11,8,0.55) 40%,
+        rgba(13,11,8,0.70) 75%,
+        rgba(13,11,8,0.80) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 24px;
+      max-width: 860px;
+      transition: opacity 0.3s ease;
+    }
+    .hero-tag {
+      font-family: 'Cormorant SC', serif;
+      font-size: 0.72rem;
+      color: var(--gold);
+      letter-spacing: 0.25em;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.8);
+    }
+    .hero-divider {
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+      margin: 18px auto;
+    }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(3.2rem, 6vw, 7rem);
+      color: var(--white);
+      line-height: 1.1;
+      text-align: center;
+    }
+    .hero-line {
+      display: block;
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 1s ease, transform 1s ease;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.7);
+    }
+    .hero-line.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .hero-desc {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 460px;
+      margin: 28px auto 36px;
+      line-height: 1.9;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.8);
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      color: var(--muted);
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ========== IDENTITY STRIP ========== */
+    .identity-strip {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 56px 40px;
+    }
+    .identity-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .identity-col {
+      text-align: center;
+      padding: 0 40px;
+    }
+    .identity-col + .identity-col {
+      border-left: 1px solid var(--border);
+    }
+    .identity-icon { margin-bottom: 16px; }
+    .identity-icon svg { display: inline-block; }
+    .identity-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      font-size: 1.5rem;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .identity-text {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    @media (max-width: 768px) {
+      .identity-strip { padding: 40px 20px; }
+      .identity-grid { grid-template-columns: 1fr; gap: 0; }
+      .identity-col + .identity-col { border-left: none; border-top: 1px solid var(--border); padding-top: 32px; margin-top: 32px; }
+      .identity-col { padding: 0; }
+    }
+
+    /* ========== ÉTLAP ========== */
+    .etlap-section { background: var(--surface); }
+    .tab-nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 40px 0 48px;
+    }
+    .tab-btn {
+      font-family: 'Cormorant SC', serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      background: none;
+      border: none;
+      border-bottom: 1px solid transparent;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: color 0.3s, border-color 0.3s;
+      text-transform: uppercase;
+    }
+    .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .tab-btn:hover { color: var(--gold-light); }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 48px;
+    }
+    @media (max-width: 768px) { .menu-grid { grid-template-columns: 1fr; } }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .menu-item-info { flex: 1; }
+    .menu-item-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      color: var(--white);
+      font-weight: 400;
+    }
+    .menu-item-desc {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .menu-item-price {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.9rem;
+      color: var(--gold);
+      white-space: nowrap;
+      margin-left: 24px;
+    }
+    .menu-note {
+      text-align: center;
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-top: 40px;
+    }
+    .menu-category {
+      font-family: 'Cormorant SC', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin: 32px 0 16px;
+      grid-column: 1 / -1;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ========== TÖRTÉNETÜNK ========== */
+    .story-section { background: var(--bg); }
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      margin-top: 56px;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .story-grid { grid-template-columns: 1fr; gap: 48px; }
+    }
+    .story-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.4rem;
+      color: var(--cream);
+      border-left: 2px solid var(--gold);
+      padding-left: 24px;
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+    .story-text {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 1rem;
+      color: var(--cream);
+      line-height: 1.9;
+    }
+    .story-text p + p { margin-top: 20px; }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 28px;
+      border-left: 1px solid var(--border);
+      margin-top: 40px;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 28px;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -33px;
+      top: 6px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 2px solid var(--bg);
+    }
+    .timeline-year {
+      font-family: 'Cormorant SC', serif;
+      color: var(--gold);
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+    }
+    .timeline-text {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .story-image-wrap {
+      position: relative;
+      height: 520px;
+    }
+    .story-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: sepia(0.18) contrast(1.04);
+      border-top: 3px solid var(--gold);
+    }
+    .story-image-corner {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 40px;
+      height: 40px;
+      border-bottom: 2px solid var(--gold);
+      border-right: 2px solid var(--gold);
+    }
+    @media (max-width: 900px) {
+      .story-image-wrap { height: 360px; }
+    }
+
+    /* ========== RENDEZVÉNYEK ========== */
+    .events-section { background: var(--surface); border-bottom: 1px solid var(--border); }
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 56px;
+    }
+    @media (max-width: 900px) { .events-grid { grid-template-columns: 1fr; } }
+
+    .event-process {
+      margin-top: 64px;
+      margin-bottom: 8px;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+    .event-process-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto 40px;
+      opacity: 0.5;
+    }
+    .event-process-title {
+      font-family: 'Cormorant SC', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+    .event-process-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      text-align: left;
+    }
+    .event-process-step {
+      display: flex;
+      gap: 28px;
+      align-items: flex-start;
+    }
+    .event-process-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--gold);
+      opacity: 0.4;
+      min-width: 36px;
+      line-height: 1.2;
+    }
+    .event-process-step-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 6px;
+      letter-spacing: 0.02em;
+    }
+    .event-process-step-desc {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.85;
+    }
+    .event-process-link {
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(201,168,76,0.3);
+      transition: border-color 0.3s;
+    }
+    .event-process-link:hover {
+      border-color: var(--gold);
+    }
+    @media (max-width: 600px) {
+      .event-process-step { gap: 18px; }
+      .event-process-number { font-size: 1.3rem; min-width: 28px; }
+    }
+
+    .event-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--gold);
+      padding: 40px 32px;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .event-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(201,168,76,0.15);
+    }
+    .event-icon { margin-bottom: 20px; }
+    .event-icon svg { display: inline-block; }
+    .event-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      color: var(--white);
+      font-weight: 500;
+      margin-bottom: 14px;
+    }
+    .event-text {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* ========== GALÉRIA ========== */
+    .gallery-section { background: var(--bg); }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 56px;
+    }
+    .gallery-grid .featured { grid-row: span 2; }
+    @media (max-width: 640px) { .gallery-grid { grid-template-columns: 1fr 1fr; } }
+
+    .gallery-item {
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      min-height: 220px;
+      object-fit: cover;
+      transition: transform 0.7s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+      filter: brightness(0.88);
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+      filter: brightness(1);
+    }
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 0px solid var(--gold);
+      transition: border-width 0.4s ease;
+      pointer-events: none;
+    }
+    .gallery-item:hover::after { border-width: 2px; }
+
+    /* ========== CUKRÁSZATUNK ========== */
+    .cake-section-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .cake-img {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      display: block;
+    }
+    .cake-section-text .section-label {
+      text-align: left;
+      margin-bottom: 16px;
+    }
+    .cake-section-text h2 {
+      text-align: left;
+      margin-bottom: 0;
+    }
+    .cake-section-text .gold-line {
+      margin: 20px 0;
+    }
+    .cake-desc {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 12px;
+    }
+    .cake-note {
+      font-family: 'Cormorant SC', serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      color: var(--gold);
+      margin-bottom: 32px;
+    }
+    .cake-img-small {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+    }
+    @media (max-width: 860px) {
+      .cake-section-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .cake-img { height: 300px; }
+    }
+
+    /* ========== PARTNEREINK ========== */
+    .partners-strip {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 80px 0;
+    }
+    .partners-subtitle {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.9rem;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 56px;
+      letter-spacing: 0.04em;
+    }
+    .partners-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px 0;
+    }
+    .partner-item {
+      padding: 0 20px;
+      border-left: 1px solid var(--border);
+      text-align: center;
+    }
+    .partner-item:first-child {
+      border-left: none;
+      padding-left: 0;
+    }
+    .partner-item:last-child {
+      padding-right: 0;
+    }
+    .partner-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      font-size: 1.2rem;
+      color: var(--white);
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+    .partner-type {
+      font-family: 'Cormorant SC', serif;
+      font-size: 0.65rem;
+      color: var(--gold);
+      letter-spacing: 0.18em;
+      margin-bottom: 14px;
+    }
+    .partner-desc {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    @media (max-width: 900px) {
+      .partners-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px 0;
+      }
+      .partner-item {
+        border-left: none;
+        padding: 0 24px;
+        border-top: 1px solid var(--border);
+        padding-top: 32px;
+      }
+      .partner-item:first-child,
+      .partner-item:nth-child(2) {
+        border-top: none;
+        padding-top: 0;
+      }
+    }
+    @media (max-width: 540px) {
+      .partners-grid { grid-template-columns: 1fr; gap: 32px; }
+      .partner-item { border-top: 1px solid var(--border); padding: 32px 0 0; }
+      .partner-item:first-child { border-top: none; padding-top: 0; }
+    }
+
+    /* ========== FOGLALÁS ========== */
+    .booking-section { background: var(--bg); }
+    .booking-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      margin-top: 56px;
+      align-items: start;
+    }
+    @media (max-width: 900px) { .booking-grid { grid-template-columns: 1fr; } }
+
+    .booking-info-text {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.9;
+      max-width: 380px;
+    }
+    .info-items { margin-top: 36px; }
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .info-item svg { flex-shrink: 0; margin-top: 3px; }
+    .info-item-label {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .info-item-value {
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 0.92rem;
+      color: var(--cream);
+    }
+    .booking-quote {
+      border-left: 2px solid var(--gold);
+      padding-left: 20px;
+      margin-top: 40px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--cream);
+      line-height: 1.7;
+    }
+
+    .booking-form input,
+    .booking-form select,
+    .booking-form textarea {
+      width: 100%;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--cream);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.9rem;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+      outline: none;
+      transition: border-color 0.3s;
+      -webkit-appearance: none;
+      border-radius: 0;
+    }
+    .booking-form input:focus,
+    .booking-form select:focus,
+    .booking-form textarea:focus { border-color: var(--gold); }
+    .booking-form select option { background: var(--card); color: var(--cream); }
+    .booking-form textarea { resize: vertical; min-height: 90px; }
+    .booking-form input::placeholder,
+    .booking-form textarea::placeholder {
+      color: var(--muted);
+      font-weight: 300;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 640px) { .form-row { grid-template-columns: 1fr; } }
+
+    .btn-submit {
+      width: 100%;
+      padding: 15px;
+      background: var(--gold);
+      color: var(--bg);
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 0.9rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+      border-radius: 0;
+    }
+    .btn-submit:hover { background: var(--gold-light); }
+
+    /* ========== FOOTER ========== */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 64px 0 32px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 48px;
+    }
+    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+    .footer-logo-main {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 1.8rem;
+      color: var(--gold);
+      letter-spacing: 0.3em;
+    }
+    .footer-logo-sub {
+      font-family: 'Cormorant SC', serif;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.2em;
+      margin-top: 4px;
+    }
+    .footer-tagline {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 12px;
+      line-height: 1.7;
+      font-style: italic;
+    }
+    .footer-social {
+      display: flex;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .footer-social a { display: inline-flex; }
+    .footer-social a svg {
+      transition: fill 0.3s, stroke 0.3s;
+    }
+    .footer-social a:hover svg { fill: var(--gold); stroke: var(--gold); }
+
+    .footer-heading {
+      font-family: 'Cormorant SC', serif;
+      font-size: 0.65rem;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+    .footer-link {
+      display: block;
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+      transition: color 0.3s;
+    }
+    .footer-link:hover { color: var(--cream); }
+    .footer-info {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      margin-top: 48px;
+      padding-top: 20px;
+      text-align: center;
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <span class="nav-logo-main">LIGET</span>
+        <span class="nav-logo-sub">KÁVÉHÁZ &amp; ÉTTEREM</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#etlap">Étlap</a></li>
+        <li><a href="#tortenetunk">Történetünk</a></li>
+        <li><a href="#rendezvenyek">Rendezvények</a></li>
+        <li><a href="#galeria">Galéria</a></li>
+        <li><a href="#foglalas">Foglalás</a></li>
+      </ul>
+      <div class="nav-cta-wrap">
+        <a href="#foglalas" class="nav-cta">Asztalt foglalok</a>
+      </div>
+      <button class="hamburger" aria-label="Menü megnyitása" id="hamburgerBtn">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu overlay -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose" aria-label="Menü bezárása">&times;</button>
+    <a href="#etlap" class="mobile-link">Étlap</a>
+    <a href="#tortenetunk" class="mobile-link">Történetünk</a>
+    <a href="#rendezvenyek" class="mobile-link">Rendezvények</a>
+    <a href="#galeria" class="mobile-link">Galéria</a>
+    <a href="#foglalas" class="mobile-link">Foglalás</a>
+  </div>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero" id="hero">
+    <div style="position:absolute;top:0;left:0;right:0;height:120px;background:linear-gradient(to bottom, rgba(13,11,8,0.85), transparent);z-index:1;pointer-events:none;"></div>
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-tag reveal" style="transition-delay:0s;">BALATONALMÁDI &middot; ALAPÍTVA 1928</p>
+      <div class="hero-divider reveal" style="transition-delay:0.15s;"></div>
+      <h1>
+        <span class="hero-line">Ahol a Balaton</span>
+        <span class="hero-line">és az elegancia</span>
+        <span class="hero-line">találkozik</span>
+      </h1>
+      <p class="hero-desc reveal" style="transition-delay:1.3s;">Közel száz éve fogadjuk vendégeinket az almádi Öregparkban. Asztalainknál a Balaton illata és a balatoni gasztronómia legjava vár.</p>
+      <div class="hero-buttons reveal" style="transition-delay:1.6s;">
+        <a href="#foglalas" class="btn-gold">Asztalt foglalok</a>
+        <a href="#etlap" class="btn-gold-outline">Étlapot megnézem</a>
+      </div>
+    </div>
+    <div class="hero-scroll">&or;</div>
+    <div class="hero-dots" id="heroDots"></div>
+    <button class="hero-arrow hero-arrow-prev" id="heroPrev" aria-label="Előző kép">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="38" y1="20" x2="2" y2="20" stroke="#C9A84C" stroke-width="1"/>
+        <polyline points="14,8 2,20 14,32" stroke="#C9A84C" stroke-width="1" fill="none"/>
+      </svg>
+    </button>
+    <button class="hero-arrow hero-arrow-next" id="heroNext" aria-label="Következő kép">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="2" y1="20" x2="38" y2="20" stroke="#C9A84C" stroke-width="1"/>
+        <polyline points="26,8 38,20 26,32" stroke="#C9A84C" stroke-width="1" fill="none"/>
+      </svg>
+    </button>
+  </section>
+
+  <!-- ========== IDENTITY STRIP ========== -->
+  <div class="identity-strip">
+    <div class="identity-grid">
+      <div class="identity-col reveal">
+        <div class="identity-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1 3 4 5.5 4 10a4 4 0 0 1-8 0c0-4.5 3-7 4-10z"/><line x1="12" y1="22" x2="12" y2="18"/><line x1="8" y1="22" x2="16" y2="22"/></svg>
+        </div>
+        <div class="identity-title">1928 óta</div>
+        <div class="identity-text">Közel száz éve vagyunk Balatonalmádi gasztronómiai szíve</div>
+      </div>
+      <div class="identity-col reveal" style="transition-delay:0.15s;">
+        <div class="identity-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="identity-title">Öregpark</div>
+        <div class="identity-text">Közvetlenül a Balaton partján, a hajóállomás szomszédságában</div>
+      </div>
+      <div class="identity-col reveal" style="transition-delay:0.3s;">
+        <div class="identity-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="identity-title">Magyar konyha</div>
+        <div class="identity-text">Vadételek, balatoni halak, házi sütemények, saját pörkölésű kávé</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== ÉTLAP ========== -->
+  <section class="etlap-section" id="etlap">
+    <div class="container">
+      <p class="section-label reveal">— ÉTLAPUNK —</p>
+      <h2 class="reveal">A Balaton ízei</h2>
+      <div class="gold-line reveal"></div>
+
+      <div class="tab-nav reveal">
+        <button class="tab-btn active" data-tab="eloetel">Levesek &amp; Előételek</button>
+        <button class="tab-btn" data-tab="foetel">Főételek</button>
+        <button class="tab-btn" data-tab="desszert">Kávék &amp; Meleg italok</button>
+        <button class="tab-btn" data-tab="ital">Italok &amp; Borok</button>
+        <button class="tab-btn" data-tab="sutemeny">Napi sütemények</button>
+      </div>
+
+      <div class="tab-content active" id="tab-eloetel">
+        <div class="menu-grid">
+          <div class="menu-category">Levesek</div>
+
+          <div class="menu-item reveal">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Eperkrémleves tökmag grillázzsal (0,3l)</div>
+              <div class="menu-item-desc">Strawberry cream soup with pumpkin seed grill</div>
+            </div>
+            <div class="menu-item-price">2 990 Ft</div>
+          </div>
+
+          <div class="menu-item reveal" style="transition-delay:0.1s;">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Kakasleves — májgaluskával (0,3l)</div>
+              <div class="menu-item-desc">Chicken broth with homemade liver dumplings</div>
+            </div>
+            <div class="menu-item-price">2 790 Ft</div>
+          </div>
+
+          <div class="menu-item reveal" style="transition-delay:0.2s;">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Kakasleves — húsával tésztával (0,3l)</div>
+              <div class="menu-item-desc">Chicken broth with meat and pasta</div>
+            </div>
+            <div class="menu-item-price">2 790 Ft</div>
+          </div>
+
+          <div class="menu-item reveal" style="transition-delay:0.3s;">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Rozmaringos kacsaraguleves, nyári vargányával (0,3l)</div>
+              <div class="menu-item-desc">Duck ragout soup with potato dumplings and summer porcini</div>
+            </div>
+            <div class="menu-item-price">2 990 Ft</div>
+          </div>
+
+          <div class="menu-item reveal" style="transition-delay:0.4s;">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Szarvasgulyás (0,3l)</div>
+              <div class="menu-item-desc">Deer goulash soup</div>
+            </div>
+            <div class="menu-item-price">3 590 Ft</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-foetel">
+        <div class="menu-grid">
+          <div class="menu-category">Vadételek</div>
+
+          <div class="menu-item reveal">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Párolt szarvascomb konyakos erdei gombamártással, mandulás krokettel</div>
+              <div class="menu-item-desc">Steamed deer leg with forest mushroom sauce and almond croquettes</div>
+            </div>
+            <div class="menu-item-price">6 990 Ft</div>
+          </div>
+
+          <div class="menu-item reveal" style="transition-delay:0.1s;">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Őzmedalionok csipkebogyómártással, burgonyafánkkal</div>
+              <div class="menu-item-desc">Roe deer medallions with rose hips sauce and potato puffs</div>
+            </div>
+            <div class="menu-item-price">6 990 Ft</div>
+          </div>
+
+          <div class="menu-item reveal" style="transition-delay:0.2s;">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Szarvas pörkölt galuskával</div>
+              <div class="menu-item-desc">Deer stew with dumplings</div>
+            </div>
+            <div class="menu-item-price">6 990 Ft</div>
+          </div>
+
+          <div class="menu-category">Frissensültek</div>
+
+          <div class="menu-item reveal">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Parenyica sajttal, házi füstölt sonkával töltött csirkemell bundában, hasábburgonyával</div>
+              <div class="menu-item-desc">Chicken breast filled with Parenyica cheese and smoked ham in coat, with fries</div>
+            </div>
+            <div class="menu-item-price">5 790 Ft</div>
+          </div>
+
+          <div class="menu-item reveal" style="transition-delay:0.1s;">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Rostonsült csirkemellcsíkok, friss kerti salátával</div>
+              <div class="menu-item-desc">Roasted chicken breast strips with fresh garden salad</div>
+            </div>
+            <div class="menu-item-price">5 790 Ft</div>
+          </div>
+
+          <div class="menu-item reveal" style="transition-delay:0.2s;">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Rántott szűzmedalionok, petrezselymes burgonyával</div>
+              <div class="menu-item-desc">Fried pork fillet with parsley potato</div>
+            </div>
+            <div class="menu-item-price">6 190 Ft</div>
+          </div>
+
+          <div class="menu-item reveal" style="transition-delay:0.3s;">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Natúr pulykamell szeletek gyömbéres szedermártással, burgonyafánkkal</div>
+              <div class="menu-item-desc">Turkey breast with ginger mulberry sauce and potato puffs</div>
+            </div>
+            <div class="menu-item-price">6 190 Ft</div>
+          </div>
+
+          <div class="menu-item reveal" style="transition-delay:0.4s;">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Füstölt kecskesajt baconbe göngyölve, grillezve, friss salátával</div>
+              <div class="menu-item-desc">Smoked goat cheese in bacon, grilled, with fresh salad</div>
+            </div>
+            <div class="menu-item-price">6 790 Ft</div>
+          </div>
+
+          <div class="menu-item reveal" style="transition-delay:0.5s;">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Szűz medalionok libamájjal, kései Olaszrizling mártással, mandulás krokettel</div>
+              <div class="menu-item-desc">Pork fillet medallions with goose liver, Olaszrizling sauce and croquettes</div>
+            </div>
+            <div class="menu-item-price">8 350 Ft</div>
+          </div>
+
+          <div class="menu-item reveal" style="transition-delay:0.6s;">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Pacalpörkölt sós burgonyával</div>
+              <div class="menu-item-desc">Tripe stew with salted potatoes</div>
+            </div>
+            <div class="menu-item-price">5 990 Ft</div>
+          </div>
+
+          <div class="menu-category">Halételek</div>
+
+          <div class="menu-item reveal">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Fogasfilé többmagos kéregben párolt rizzsel</div>
+              <div class="menu-item-desc">Pike perch fillet in multi-seed coat with cooked rice</div>
+            </div>
+            <div class="menu-item-price">6 850 Ft</div>
+          </div>
+
+          <div class="menu-item reveal" style="transition-delay:0.1s;">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Kapros túróval töltött harcsafilé baconbe göngyölve, mandulás krokettel</div>
+              <div class="menu-item-desc">Catfish filled with dilled curd, in bacon with croquettes</div>
+            </div>
+            <div class="menu-item-price">7 150 Ft</div>
+          </div>
+
+          <div class="menu-item reveal" style="transition-delay:0.2s;">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Vargányás harcsapaprikás nokedlivel</div>
+              <div class="menu-item-desc">Paprika catfish with porcini and Hungarian nokedli pasta</div>
+            </div>
+            <div class="menu-item-price">7 150 Ft</div>
+          </div>
+
+          <div class="menu-item reveal" style="transition-delay:0.3s;">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Roston sült fogasfilé friss saláta ágyon, zöldfűszeres joghurtöntettel</div>
+              <div class="menu-item-desc">Roasted pike perch fillet on fresh salad bed with yoghurt dressing</div>
+            </div>
+            <div class="menu-item-price">6 850 Ft</div>
+          </div>
+
+          <div class="menu-category">Tészták</div>
+
+          <div class="menu-item reveal">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Túrós csusza</div>
+              <div class="menu-item-desc">Hungarian pasta with curd, sour cream and crispy bacon</div>
+            </div>
+            <div class="menu-item-price">4 990 Ft</div>
+          </div>
+
+          <div class="menu-item reveal" style="transition-delay:0.1s;">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Vargányás spagetti</div>
+              <div class="menu-item-desc">Spagetti with porcini</div>
+            </div>
+            <div class="menu-item-price">6 290 Ft</div>
+          </div>
+
+          <div class="menu-item reveal" style="transition-delay:0.2s;">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Mákos tészta házi gyúrt szélesmetéltből</div>
+              <div class="menu-item-desc">Poppy seed pasta from homemade noodles</div>
+            </div>
+            <div class="menu-item-price">4 290 Ft</div>
+          </div>
+
+          <div class="menu-category">Vegetáriánus ételek</div>
+
+          <div class="menu-item reveal">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Vargányás spagetti</div>
+              <div class="menu-item-desc">Spagetti with porcini</div>
+            </div>
+            <div class="menu-item-price">6 290 Ft</div>
+          </div>
+
+          <div class="menu-item reveal" style="transition-delay:0.1s;">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Mákos tészta házi gyúrt szélesmetéltből</div>
+              <div class="menu-item-desc">Poppy seed pasta from homemade noodles</div>
+            </div>
+            <div class="menu-item-price">4 290 Ft</div>
+          </div>
+
+          <div class="menu-item reveal" style="transition-delay:0.2s;">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Zöldfűszeres vargányás serpenyős burgonya grill tofuval</div>
+              <div class="menu-item-desc">Vegán — glutén és laktózmentes. Fried potatoes with mushrooms and grilled tofu</div>
+            </div>
+            <div class="menu-item-price">6 500 Ft</div>
+          </div>
+
+          <div class="menu-category">Gyermek ételek</div>
+
+          <div class="menu-item reveal">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Csirkemell corn flakes bundában, sült burgonyával</div>
+              <div class="menu-item-desc">Chicken breast fried in corn flakes with french fries</div>
+            </div>
+            <div class="menu-item-price">3 190 Ft</div>
+          </div>
+
+          <div class="menu-item reveal" style="transition-delay:0.1s;">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Ropogós dinó falatkák sült burgonyával</div>
+              <div class="menu-item-desc">Crispy dinosaur bites with french fries</div>
+            </div>
+            <div class="menu-item-price">3 190 Ft</div>
+          </div>
+
+          <div class="menu-item reveal" style="transition-delay:0.2s;">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Rántott fogasfilé rizzsel, tartármártással</div>
+              <div class="menu-item-desc">Fried pike-perch with rice and tartar sauce</div>
+            </div>
+            <div class="menu-item-price">3 790 Ft</div>
+          </div>
+
+          <div class="menu-category">Saláták</div>
+
+          <div class="menu-item reveal">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Káposzta saláta</div>
+              <div class="menu-item-desc">Cabbage salad</div>
+            </div>
+            <div class="menu-item-price">1 400 Ft</div>
+          </div>
+
+          <div class="menu-item reveal" style="transition-delay:0.1s;">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Uborka saláta</div>
+              <div class="menu-item-desc">Cucumber salad</div>
+            </div>
+            <div class="menu-item-price">1 400 Ft</div>
+          </div>
+
+          <div class="menu-item reveal" style="transition-delay:0.2s;">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Friss saláta zöldfűszeres joghurtöntettel</div>
+              <div class="menu-item-desc">Fresh salad with yoghurt sauce</div>
+            </div>
+            <div class="menu-item-price">2 800 Ft</div>
+          </div>
+
+          <div class="menu-category">Ételekhez rendelhető</div>
+
+          <div class="menu-item reveal">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Kenyér</div>
+            </div>
+            <div class="menu-item-price">700 Ft/kosár</div>
+          </div>
+
+          <div class="menu-item reveal" style="transition-delay:0.1s;">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Ketchup / mustár / majonéz</div>
+            </div>
+            <div class="menu-item-price">400 Ft</div>
+          </div>
+
+          <div class="menu-item reveal" style="transition-delay:0.2s;">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Tartár mártás</div>
+            </div>
+            <div class="menu-item-price">600 Ft</div>
+          </div>
+
+          <div class="menu-item reveal" style="transition-delay:0.3s;">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Erőspaprika</div>
+            </div>
+            <div class="menu-item-price">400 Ft</div>
+          </div>
+
+          <div class="menu-item reveal" style="transition-delay:0.4s;">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Tejföl</div>
+            </div>
+            <div class="menu-item-price">500 Ft</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-desszert">
+        <div class="menu-grid">
+          <div class="menu-category">Kávék</div>
+          <p style="grid-column:1/-1; font-family:'Jost',sans-serif; font-size:0.8rem; color:var(--muted); margin-bottom:8px;">Laktózmentes tej vagy növényi tej választása esetén 300 Ft felár.</p>
+
+          <div class="menu-item reveal">
+            <div class="menu-item-info"><div class="menu-item-name">Rövidkávé (ristretto)</div></div>
+            <div class="menu-item-price">950 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.05s;">
+            <div class="menu-item-info"><div class="menu-item-name">Espresso</div></div>
+            <div class="menu-item-price">950 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.1s;">
+            <div class="menu-item-info"><div class="menu-item-name">Espresso tejjel vagy tejhabbal vagy tejszínhabbal</div></div>
+            <div class="menu-item-price">1 050 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.15s;">
+            <div class="menu-item-info"><div class="menu-item-name">Espresso 1cl prémium madárberkenye pálinkával</div></div>
+            <div class="menu-item-price">1 990 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.2s;">
+            <div class="menu-item-info"><div class="menu-item-name">Dupla espresso (doppio)</div></div>
+            <div class="menu-item-price">1 500 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.25s;">
+            <div class="menu-item-info"><div class="menu-item-name">Cappuccino</div></div>
+            <div class="menu-item-price">1 300 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.3s;">
+            <div class="menu-item-info"><div class="menu-item-name">Csíkos tejeskávé (latte macchiato)</div></div>
+            <div class="menu-item-price">1 500 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.35s;">
+            <div class="menu-item-info"><div class="menu-item-name">Csíkos tejeskávé mézzel</div></div>
+            <div class="menu-item-price">1 600 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.4s;">
+            <div class="menu-item-info"><div class="menu-item-name">Tejeskávé tejszínhabbal</div></div>
+            <div class="menu-item-price">1 600 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.45s;">
+            <div class="menu-item-info"><div class="menu-item-name">Hosszúkávé</div></div>
+            <div class="menu-item-price">950 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.5s;">
+            <div class="menu-item-info"><div class="menu-item-name">Amerikai kávé (americano)</div></div>
+            <div class="menu-item-price">1 100 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.55s;">
+            <div class="menu-item-info"><div class="menu-item-name">Jeges csokoládé</div></div>
+            <div class="menu-item-price">2 190 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.6s;">
+            <div class="menu-item-info"><div class="menu-item-name">Jégeskávé vaníliafagyival</div></div>
+            <div class="menu-item-price">2 190 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.65s;">
+            <div class="menu-item-info"><div class="menu-item-name">Jégeskávé Baileys-szel</div></div>
+            <div class="menu-item-price">3 290 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.7s;">
+            <div class="menu-item-info"><div class="menu-item-name">Ír kávé</div></div>
+            <div class="menu-item-price">2 490 Ft</div>
+          </div>
+
+          <div class="menu-category">Szálas teák</div>
+
+          <div class="menu-item reveal">
+            <div class="menu-item-info"><div class="menu-item-name">Original Earl Grey, Jázminos zöldtea, Borsmenta tea, Natúr gyümölcsteák</div></div>
+            <div class="menu-item-price">1 490 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.1s;">
+            <div class="menu-item-info"><div class="menu-item-name">Earl Grey latte</div></div>
+            <div class="menu-item-price">1 490 Ft</div>
+          </div>
+
+          <div class="menu-category">Meleg italok</div>
+
+          <div class="menu-item reveal">
+            <div class="menu-item-info"><div class="menu-item-name">Klasszikus forrócsokoládé</div></div>
+            <div class="menu-item-price">2 190 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.1s;">
+            <div class="menu-item-info"><div class="menu-item-name">Fehér forrócsokoládé</div></div>
+            <div class="menu-item-price">2 190 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.2s;">
+            <div class="menu-item-info"><div class="menu-item-name">Raffaello-s forrócsokoládé</div></div>
+            <div class="menu-item-price">2 690 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.3s;">
+            <div class="menu-item-info"><div class="menu-item-name">Ferrero-s forrócsokoládé</div></div>
+            <div class="menu-item-price">2 690 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.4s;">
+            <div class="menu-item-info"><div class="menu-item-name">Mozart likőrös forrócsokoládé (4cl Mozart likőrt tartalmaz)</div></div>
+            <div class="menu-item-price">3 290 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.5s;">
+            <div class="menu-item-info"><div class="menu-item-name">Habos kakó</div></div>
+            <div class="menu-item-price">1 890 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.6s;">
+            <div class="menu-item-info"><div class="menu-item-name">Forralt bor</div></div>
+            <div class="menu-item-price">1 400 Ft / 2dl &nbsp;·&nbsp; 1 800 Ft / 3dl</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-ital">
+        <div class="menu-grid">
+          <div class="menu-category">Koktélok</div>
+
+          <div class="menu-item reveal">
+            <div class="menu-item-info"><div class="menu-item-name">Aperol spritz</div></div>
+            <div class="menu-item-price">2 790 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.1s;">
+            <div class="menu-item-info"><div class="menu-item-name">Mojito</div></div>
+            <div class="menu-item-price">2 790 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.2s;">
+            <div class="menu-item-info"><div class="menu-item-name">Cuba Libre</div></div>
+            <div class="menu-item-price">2 790 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.3s;">
+            <div class="menu-item-info"><div class="menu-item-name">Mimóza</div></div>
+            <div class="menu-item-price">2 790 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.4s;">
+            <div class="menu-item-info"><div class="menu-item-name">Gin fizz</div></div>
+            <div class="menu-item-price">2 790 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.5s;">
+            <div class="menu-item-info"><div class="menu-item-name">Hendrick's + tonic</div></div>
+            <div class="menu-item-price">3 890 Ft</div>
+          </div>
+
+          <div class="menu-category">Frissítőink — helyben készült, tartósítószer mentesek</div>
+
+          <div class="menu-item reveal">
+            <div class="menu-item-info"><div class="menu-item-name">Vitamin víz / detox water</div></div>
+            <div class="menu-item-price">1 800 Ft / 3dl</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.1s;">
+            <div class="menu-item-info"><div class="menu-item-name">Szűretlen házi szörpök: málna, ribizli</div></div>
+            <div class="menu-item-price">400 Ft / dl</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.2s;">
+            <div class="menu-item-info"><div class="menu-item-name">Házi szűretlen citromos gyömbér</div></div>
+            <div class="menu-item-price">400 Ft / dl</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.3s;">
+            <div class="menu-item-info"><div class="menu-item-name">Házi earl grey jegestea citrommal</div></div>
+            <div class="menu-item-price">1 500 Ft / 3dl</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.4s;">
+            <div class="menu-item-info"><div class="menu-item-name">Helyben facsart friss narancs / grapefruit juice</div></div>
+            <div class="menu-item-price">700 Ft / dl</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.5s;">
+            <div class="menu-item-info"><div class="menu-item-name">Limonádé friss citromból</div></div>
+            <div class="menu-item-price">400 Ft / dl</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.6s;">
+            <div class="menu-item-info"><div class="menu-item-name">Eper shake</div></div>
+            <div class="menu-item-price">2 190 Ft</div>
+          </div>
+
+          <div class="menu-category">Csapolt sörök — Paulaner</div>
+
+          <div class="menu-item reveal">
+            <div class="menu-item-info"><div class="menu-item-name">Pils — világos 4,7%</div></div>
+            <div class="menu-item-price">1 500 Ft / 0,3l &nbsp;·&nbsp; 2 200 Ft / 0,5l</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.1s;">
+            <div class="menu-item-info"><div class="menu-item-name">Hefe Weissbier — búza 5,9%</div></div>
+            <div class="menu-item-price">1 500 Ft / 0,3l &nbsp;·&nbsp; 2 200 Ft / 0,5l</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.2s;">
+            <div class="menu-item-info"><div class="menu-item-name">Salvator — barna 7,9%</div></div>
+            <div class="menu-item-price">1 500 Ft / 0,3l &nbsp;·&nbsp; 2 200 Ft / 0,5l</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.3s;">
+            <div class="menu-item-info"><div class="menu-item-name">Paulaner alkoholmentes sör (0,33l)</div></div>
+            <div class="menu-item-price">1 200 Ft</div>
+          </div>
+
+          <div class="menu-category">Folyó boraink — Levendula Pince, Lovas</div>
+
+          <div class="menu-item reveal">
+            <div class="menu-item-info"><div class="menu-item-name">Fehérbor: Olaszrizling (száraz)</div></div>
+            <div class="menu-item-price">800 Ft / dl</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.1s;">
+            <div class="menu-item-info"><div class="menu-item-name">Rozé: Kékfrankos-Merlot (száraz)</div></div>
+            <div class="menu-item-price">800 Ft / dl</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.2s;">
+            <div class="menu-item-info"><div class="menu-item-name">Vörösbor: Cabernet Sauvignon (száraz)</div></div>
+            <div class="menu-item-price">1 000 Ft / dl</div>
+          </div>
+
+          <div class="menu-category">Fröccsök — Levendula Pince boraiból</div>
+
+          <div class="menu-item reveal">
+            <div class="menu-item-info"><div class="menu-item-name">Kisfröccs</div></div>
+            <div class="menu-item-price">950 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.1s;">
+            <div class="menu-item-info"><div class="menu-item-name">Nagyfröccs</div></div>
+            <div class="menu-item-price">1 750 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.2s;">
+            <div class="menu-item-info"><div class="menu-item-name">Hosszúlépés</div></div>
+            <div class="menu-item-price">1 100 Ft</div>
+          </div>
+
+          <div class="menu-category">Reneszánsz Pálinkák (40% alk.)</div>
+
+          <div class="menu-item reveal">
+            <div class="menu-item-info"><div class="menu-item-name">Sárgabarack, szilva, vilmoskörte</div></div>
+            <div class="menu-item-price">1 400 Ft / 2cl &nbsp;·&nbsp; 2 800 Ft / 4cl</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.1s;">
+            <div class="menu-item-info"><div class="menu-item-name">Birs, kéknyelű, Irsai Olivér</div></div>
+            <div class="menu-item-price">1 600 Ft / 2cl &nbsp;·&nbsp; 3 000 Ft / 4cl</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.2s;">
+            <div class="menu-item-info"><div class="menu-item-name">Prémium kökény, málna, madárberkenye</div></div>
+            <div class="menu-item-price">1 800 Ft / 2cl &nbsp;·&nbsp; 3 200 Ft / 4cl</div>
+          </div>
+
+          <div class="menu-category">Rövid italok</div>
+
+          <div class="menu-item reveal">
+            <div class="menu-item-info"><div class="menu-item-name">Unicum, Unicum szilva</div></div>
+            <div class="menu-item-price">700 Ft / 2cl &nbsp;·&nbsp; 1 400 Ft / 4cl</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.05s;">
+            <div class="menu-item-info"><div class="menu-item-name">Jägermeister</div></div>
+            <div class="menu-item-price">700 Ft / 2cl &nbsp;·&nbsp; 1 400 Ft / 4cl</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.1s;">
+            <div class="menu-item-info"><div class="menu-item-name">ABSOLUT vodka</div></div>
+            <div class="menu-item-price">700 Ft / 2cl &nbsp;·&nbsp; 1 400 Ft / 4cl</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.15s;">
+            <div class="menu-item-info"><div class="menu-item-name">Bacardi Superior</div></div>
+            <div class="menu-item-price">700 Ft / 2cl &nbsp;·&nbsp; 1 400 Ft / 4cl</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.2s;">
+            <div class="menu-item-info"><div class="menu-item-name">Captain Morgan</div></div>
+            <div class="menu-item-price">700 Ft / 2cl &nbsp;·&nbsp; 1 400 Ft / 4cl</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.25s;">
+            <div class="menu-item-info"><div class="menu-item-name">Metaxa 5star</div></div>
+            <div class="menu-item-price">700 Ft / 2cl &nbsp;·&nbsp; 1 400 Ft / 4cl</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.3s;">
+            <div class="menu-item-info"><div class="menu-item-name">Chivas Regal</div></div>
+            <div class="menu-item-price">1 000 Ft / 2cl &nbsp;·&nbsp; 2 000 Ft / 4cl</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.35s;">
+            <div class="menu-item-info"><div class="menu-item-name">Tullamore Dew</div></div>
+            <div class="menu-item-price">1 000 Ft / 2cl &nbsp;·&nbsp; 2 000 Ft / 4cl</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.4s;">
+            <div class="menu-item-info"><div class="menu-item-name">Jameson</div></div>
+            <div class="menu-item-price">800 Ft / 2cl &nbsp;·&nbsp; 1 600 Ft / 4cl</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.45s;">
+            <div class="menu-item-info"><div class="menu-item-name">Jack Daniel's</div></div>
+            <div class="menu-item-price">900 Ft / 2cl &nbsp;·&nbsp; 1 800 Ft / 4cl</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.5s;">
+            <div class="menu-item-info"><div class="menu-item-name">Beefeater Gin</div></div>
+            <div class="menu-item-price">700 Ft / 2cl &nbsp;·&nbsp; 1 400 Ft / 4cl</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.55s;">
+            <div class="menu-item-info"><div class="menu-item-name">Hendricks Gin</div></div>
+            <div class="menu-item-price">1 400 Ft / 2cl &nbsp;·&nbsp; 2 800 Ft / 4cl</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.6s;">
+            <div class="menu-item-info"><div class="menu-item-name">Bailey's</div></div>
+            <div class="menu-item-price">700 Ft / 2cl &nbsp;·&nbsp; 1 400 Ft / 4cl</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.65s;">
+            <div class="menu-item-info"><div class="menu-item-name">Henessy V.S.O.P</div></div>
+            <div class="menu-item-price">1 800 Ft / 2cl &nbsp;·&nbsp; 3 600 Ft / 4cl</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.7s;">
+            <div class="menu-item-info"><div class="menu-item-name">Campari</div></div>
+            <div class="menu-item-price">1 500 Ft / dl</div>
+          </div>
+
+          <div class="menu-category">Pezsgők</div>
+
+          <div class="menu-item reveal">
+            <div class="menu-item-info"><div class="menu-item-name">Hungaria Extra Dry (0,75l)</div></div>
+            <div class="menu-item-price">6 500 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.1s;">
+            <div class="menu-item-info"><div class="menu-item-name">Hungaria Extra Dry (0,2l)</div></div>
+            <div class="menu-item-price">1 800 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.2s;">
+            <div class="menu-item-info"><div class="menu-item-name">Prosecco (0,2l)</div></div>
+            <div class="menu-item-price">2 600 Ft</div>
+          </div>
+
+          <div class="menu-category">Üdítők</div>
+
+          <div class="menu-item reveal">
+            <div class="menu-item-info"><div class="menu-item-name">Sió gyümölcslevek: alma, őszi, narancs</div></div>
+            <div class="menu-item-price">300 Ft / dl</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.1s;">
+            <div class="menu-item-info"><div class="menu-item-name">Cola, Zero Cola (0,25l)</div></div>
+            <div class="menu-item-price">990 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.2s;">
+            <div class="menu-item-info"><div class="menu-item-name">Franklin & Son's tonic (0,2l)</div></div>
+            <div class="menu-item-price">1 200 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.3s;">
+            <div class="menu-item-info"><div class="menu-item-name">Theodóra szénsavas / mentes (0,33l)</div></div>
+            <div class="menu-item-price">700 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.4s;">
+            <div class="menu-item-info"><div class="menu-item-name">Theodóra szénsavas / mentes (0,75l)</div></div>
+            <div class="menu-item-price">1 200 Ft</div>
+          </div>
+          <div class="menu-item reveal" style="transition-delay:0.5s;">
+            <div class="menu-item-info"><div class="menu-item-name">Szódavíz</div></div>
+            <div class="menu-item-price">150 Ft / dl</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-sutemeny">
+        <div class="cake-section-inner">
+          <div class="cake-section-image reveal">
+            <img src="images/processed-9B1026C8-BAB8-4899-BC31-74D213652EA2.jpeg" alt="Liget kávézó pult süteményes vitrinnel" class="cake-img">
+          </div>
+          <div class="cake-section-text reveal" style="transition-delay:0.2s;">
+            <p class="section-label">— CUKRÁSZATUNK —</p>
+            <h2>Napi süteményeink</h2>
+            <div class="gold-line"></div>
+            <p class="cake-desc">A Liget cukrászata minden nap frissen süt — rétes, torta, krémes és szezonális különlegességek. A kínálat napról napra változik, a minőség soha.</p>
+            <p class="cake-note">Kérdezze személyzetünket a mai kínálatról.</p>
+            <div class="cake-image-secondary reveal" style="transition-delay:0.35s;">
+              <img src="images/processed-8486F2A0-6131-4EC0-B577-DEC3DFEBCC80.jpeg" alt="Tiramisu a teraszon" class="cake-img-small">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="menu-note reveal">Étlapunk szezonálisan változik. Halételeinkben szálka előfordulhat. Allergiás vendégeinknek kérésre tájékoztatást adunk. Áraink forintban értendők és tartalmazzák az ÁFÁ-t.</p>
+
+      <div style="text-align:center; margin-top: 60px;" class="reveal">
+        <a href="#foglalas" class="btn-gold-outline">Asztalt foglalok</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TÖRTÉNETÜNK ========== -->
+  <section class="story-section" id="tortenetunk">
+    <div class="container">
+      <p class="section-label reveal">— TÖRTÉNETÜNK —</p>
+      <h2 class="reveal">Közel száz év a Balaton partján</h2>
+      <div class="gold-line reveal"></div>
+
+      <div class="story-grid">
+        <div class="story-left">
+          <blockquote class="story-quote reveal">
+            „1928-ban épültünk fel az Almádi Fürdő és Építő Rt. megbízásából — olasz stílusban, a korabeli sajtó szavaival élve: 'látványosságba menő' eleganciával."
+          </blockquote>
+          <div class="story-text reveal">
+            <p>Az Öregparkban állunk azóta is — a Balaton-parti hajóállomás szomszédságában, a Sóhajok hídja és a strand között. Közel egy évszázad viharait, névváltozásait, korszakait éltük túl: voltunk Pannónia Kioszk, Pannónia Kávéház-Bár, és végül visszatértünk ahhoz, amik voltunk — a Liget Kávéházhoz.</p>
+            <p>Ma is azt a nyugalmat és eleganciát kínáljuk, amit a Balaton-parti grand café fogalma képvisel. Nem a gyorsaság, nem a tömeg — a pillanat. Az asztal, ahol érdemes maradni.</p>
+          </div>
+
+          <div class="timeline reveal">
+            <div class="timeline-item">
+              <div class="timeline-year">1928</div>
+              <div class="timeline-text">Megépül a Liget Kávéház — olasz stílusban, 12 300 pengő értékben</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">1930-AS ÉVEK</div>
+              <div class="timeline-text">Pannónia Kioszk és Kávéház-Bár korszak</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">SZOCIALIZMUS</div>
+              <div class="timeline-text">Az MTA üdülő menzájaként folytatja életét</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">MA</div>
+              <div class="timeline-text">Balatonalmádi gasztronómiai ikonhelye, eredeti nevén</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="story-image-wrap reveal" style="transition-delay:0.2s;">
+          <img src="images/fortepan_14940.jpg" loading="lazy" alt="Pannónia terasz, 1950-es évek">
+          <div class="story-image-corner"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== RENDEZVÉNYEK ========== -->
+  <section class="events-section" id="rendezvenyek">
+    <div class="container">
+      <p class="section-label reveal">— RENDEZVÉNYEK —</p>
+      <h2 class="reveal">Különleges alkalmakra</h2>
+      <div class="gold-line reveal"></div>
+
+      <div class="events-grid">
+        <div class="event-card reveal">
+          <div class="event-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <div class="event-title">Esküvő &amp; Ünnepség</div>
+          <div class="event-text">A Liget teraszán és kertjében felejthetetlen ünnepségeket szervezünk. Helyszínünk befogadóképessége 50–60 fő, teljeskörű catering és dekorációs koordinációval.</div>
+        </div>
+        <div class="event-card reveal" style="transition-delay:0.15s;">
+          <div class="event-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="12.01"/></svg>
+          </div>
+          <div class="event-title">Céges rendezvény</div>
+          <div class="event-text">Üzleti ebédek, csapatépítők, évzárók. Zárt termet biztosítunk 50–60 fő részére. A Balaton-parti környezet garantálja az egyedi élményt.</div>
+        </div>
+        <div class="event-card reveal" style="transition-delay:0.3s;">
+          <div class="event-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="6"/><path d="M12 6a3 3 0 0 1 3 3c0 2-3 6-3 6s-3-4-3-6a3 3 0 0 1 3-3z"/><line x1="12" y1="15" x2="12" y2="22"/><line x1="9" y1="22" x2="15" y2="22"/></svg>
+          </div>
+          <div class="event-title">Privát vacsora</div>
+          <div class="event-text">Romantikus vacsorák, születésnapok, különleges évfordulók. Személyre szabott menü, asztaldísz és diszkrét, figyelmes kiszolgálás.</div>
+        </div>
+      </div>
+
+      <div class="event-process reveal">
+        <div class="event-process-divider"></div>
+        <p class="event-process-title">Így dolgozunk együtt</p>
+        <div class="event-process-steps">
+          <div class="event-process-step">
+            <div class="event-process-number">01</div>
+            <div class="event-process-text">
+              <div class="event-process-step-title">Írja le elképzelését</div>
+              <div class="event-process-step-desc">Küldjön egy rövid emailt a <a href="mailto:ligetkavehaz@hotmail.com" class="event-process-link">ligetkavehaz@hotmail.com</a> címre. Néhány mondatban elegendő: milyen típusú eseményt tervez, mikor és milyen évszakban képzeli el, hány főre (maximum 50–60 fő), és milyen hangulatot szeretne teremteni.</div>
+            </div>
+          </div>
+          <div class="event-process-step">
+            <div class="event-process-number">02</div>
+            <div class="event-process-text">
+              <div class="event-process-step-title">Visszahívjuk</div>
+              <div class="event-process-step-desc">Az email alapján személyesen felvesszük Önnel a kapcsolatot — egyeztetünk az elképzelésekről, a helyszínről és a lehetőségekről.</div>
+            </div>
+          </div>
+          <div class="event-process-step">
+            <div class="event-process-number">03</div>
+            <div class="event-process-text">
+              <div class="event-process-step-title">Közösen tervezzük meg</div>
+              <div class="event-process-step-desc">Az egyeztetés után részletes ajánlatot készítünk: menü, dekoráció, időbeosztás — minden az Ön igényei szerint.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top: 56px;" class="reveal">
+        <p style="font-family:'Jost', sans-serif; font-weight:300; color:var(--muted); margin-bottom:24px; font-size:0.95rem;">
+          Rendezvény szervezéssel kapcsolatban állunk rendelkezésre.
+        </p>
+        <a href="#foglalas" class="btn-gold-outline">Érdeklődöm</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== GALÉRIA ========== -->
+  <section class="gallery-section" id="galeria">
+    <div class="container">
+      <p class="section-label reveal">— GALÉRIA —</p>
+      <h2 class="reveal">Pillanatok a Ligetnél</h2>
+      <div class="gold-line reveal"></div>
+
+      <div class="gallery-grid">
+        <div class="gallery-item featured reveal">
+          <img src="images/fortepan_11439.jpg" loading="lazy" alt="Az épület az Öregparkból, 1950-es évek">
+        </div>
+        <div class="gallery-item reveal" style="transition-delay:0.1s;">
+          <img src="images/IMG_3793.jpeg" loading="lazy" alt="Esti terasz a parkban">
+        </div>
+        <div class="gallery-item reveal" style="transition-delay:0.2s;">
+          <img src="images/IMG_3818.jpeg" loading="lazy" alt="Kerti asztal virágközéppel">
+        </div>
+        <div class="gallery-item reveal" style="transition-delay:0.3s;">
+          <img src="images/313_3.jpg" loading="lazy" alt="Terasz balatoni kilátással">
+        </div>
+        <div class="gallery-item reveal" style="transition-delay:0.4s;">
+          <img src="images/fortepan_222342.jpg" loading="lazy" alt="Társaság a Pannónia teraszon, 1930-as évek">
+        </div>
+        <div class="gallery-item reveal" style="transition-delay:0.5s;">
+          <img src="images/IMG_3812.jpeg" loading="lazy" alt="Esti hangulat a teraszon">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PARTNEREINK ========== -->
+  <div class="partners-strip">
+    <div class="container">
+      <p class="section-label reveal">— PARTNEREINK —</p>
+      <p class="partners-subtitle reveal">Gondosan válogatott alapanyagok, megbízható kezekből</p>
+      <div class="partners-grid">
+        <div class="partner-item reveal" style="transition-delay:0s;">
+          <div class="partner-name">Paulaner</div>
+          <div class="partner-type">Bajor sörspecialitás</div>
+          <div class="partner-desc">1634 óta Münchenben főzött, természetes alapanyagokból készült búzasör — a Liget csapolt különlegessége.</div>
+        </div>
+        <div class="partner-item reveal" style="transition-delay:0.15s;">
+          <div class="partner-name">Levendula Pince</div>
+          <div class="partner-type">Lovas · Balatonfüred-Csopaki borvidék</div>
+          <div class="partner-desc">Kis-hegy tetején, levendulaültetvény között termett kézműves borok, csodás balatoni panorámával.</div>
+        </div>
+        <div class="partner-item reveal" style="transition-delay:0.3s;">
+          <div class="partner-name">Petrányi Pince</div>
+          <div class="partner-type">Csopak · Balatonfüred-Csopaki borvidék</div>
+          <div class="partner-desc">Michelin-ajánlott csopaki birtok. Olaszrizling, Furmint és Syrah — a Balaton-felvidék karakteres ízei.</div>
+        </div>
+        <div class="partner-item reveal" style="transition-delay:0.45s;">
+          <div class="partner-name">Felsőörsi Tekergő Sajtműhely</div>
+          <div class="partner-type">Felsőörs · Kézműves sajt</div>
+          <div class="partner-desc">Magyar tarka tehéntejből készült, tradicionális eljárással érlelt kézműves sajtok — a Balaton-felvidék szívéből.</div>
+        </div>
+        <div class="partner-item reveal" style="transition-delay:0.6s;">
+          <div class="partner-name">Reneszánsz Badacsonyi Pálinkaház</div>
+          <div class="partner-type">Badacsony · Kézműves pálinka</div>
+          <div class="partner-desc">Manufakturális pálinkaház Badacsony eredetvédett területéről. Prémium gyümölcspálinkáik különleges eljárással készülnek — sárgarépa, szilva, vilmoskörte.</div>
+        </div>
+        <div class="partner-item reveal" style="transition-delay:0.75s;">
+          <div class="partner-name">Igazioliva</div>
+          <div class="partner-type">Pomáz · Prémium olívaolaj</div>
+          <div class="partner-desc">Magyarország vezető olívaolaj-specialistája. Tóth Gusztáv 17 éve válogat közvetlen mediterrán termelőktől — minden tányérhoz a legjobb alapanyag.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== FOGLALÁS ========== -->
+  <section id="foglalas" style="background: var(--bg); padding: 120px 0;">
+    <div class="container" style="text-align: center; max-width: 600px;">
+      <p class="section-label reveal">— FOGLALÁS —</p>
+      <h2 class="reveal">Foglaljon asztalt</h2>
+      <div class="gold-line reveal"></div>
+      <p class="reveal" style="font-family: 'Jost', sans-serif; font-weight: 300; font-size: 1rem; color: var(--muted); line-height: 1.9; margin-bottom: 48px;">
+        Asztalfoglaláshoz kérjük hívjon minket telefonon. Örömmel fogadunk minden megkeresést.
+      </p>
+      <a href="tel:+36309645364" class="reveal" style="display: inline-flex; flex-direction: column; align-items: center; gap: 8px; text-decoration: none;">
+        <span style="font-family: 'Cormorant SC', serif; font-size: 0.72rem; color: var(--gold); letter-spacing: 0.22em;">TELEFON</span>
+        <span style="font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2rem, 4vw, 3rem); color: var(--white); letter-spacing: 0.05em; transition: color 0.3s;">+36 30 964-5364</span>
+      </a>
+      <p class="reveal" style="font-family: 'Jost', sans-serif; font-weight: 300; font-size: 0.85rem; color: var(--muted); margin-top: 48px;">
+        Nyári szezon (márc–okt): minden nap 10:00–21:00<br>
+        Téli szezon (nov–febr): péntek–vasárnap 11:00–19:00
+      </p>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo-main">LIGET</div>
+          <div class="footer-logo-sub">KÁVÉHÁZ &amp; ÉTTEREM</div>
+          <div class="footer-tagline">Balaton partján, 1928 óta.</div>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#8A7F6E" stroke="none"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="#" aria-label="Instagram">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A7F6E" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="#8A7F6E" stroke="none"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <div class="footer-heading">NAVIGÁCIÓ</div>
+          <a href="#etlap" class="footer-link">Étlap</a>
+          <a href="#tortenetunk" class="footer-link">Történetünk</a>
+          <a href="#rendezvenyek" class="footer-link">Rendezvények</a>
+          <a href="#galeria" class="footer-link">Galéria</a>
+          <a href="#foglalas" class="footer-link">Foglalás</a>
+        </div>
+
+        <div>
+          <div class="footer-heading">ELÉRHETŐSÉG</div>
+          <div class="footer-info">8220 Balatonalmádi, Véghely Dezső u. 1.</div>
+          <div class="footer-info">+36 30 964-5364</div>
+          <div class="footer-info">ligetkavehaz@hotmail.com</div>
+          <div class="footer-info">Nyári szezon: H–V 10:00–21:00</div>
+          <div class="footer-info">Téli szezon: P–V 11:00–19:00</div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        &copy; 2025 Liget Kávéház és Étterem &middot; Minden jog fenntartva &middot; Balatonalmádi
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ========== IntersectionObserver — Reveal + Gold Lines ==========
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    document.querySelectorAll('.gold-line').forEach(el => revealObserver.observe(el));
+
+    // ========== Hero text stagger ==========
+    document.addEventListener('DOMContentLoaded', () => {
+      const heroLines = document.querySelectorAll('.hero-line');
+      const delays = [300, 650, 1000];
+      heroLines.forEach((line, i) => {
+        setTimeout(() => line.classList.add('visible'), delays[i]);
+      });
+    });
+
+    // ========== Hero parallax ==========
+    const heroBg = document.querySelector('.hero-bg');
+    if (heroBg) {
+      window.addEventListener('scroll', () => {
+        heroBg.style.transform = 'translateY(' + (window.scrollY * 0.38) + 'px)';
+      }, { passive: true });
+    }
+
+    // ========== Navbar scroll ==========
+    const navbar = document.querySelector('nav');
+    if (navbar) {
+      window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 70);
+      }, { passive: true });
+    }
+
+    // ========== Active nav link ==========
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { threshold: 0.3, rootMargin: '-72px 0px -50% 0px' });
+
+    sections.forEach(s => navObserver.observe(s));
+
+    // ========== Mobile menu ==========
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileClose = document.getElementById('mobileClose');
+
+    if (hamburgerBtn && mobileMenu && mobileClose) {
+      hamburgerBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
+      mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+      document.querySelectorAll('.mobile-link').forEach(link => {
+        link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+      });
+    }
+
+    // ========== Menu tabs ==========
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+        const target = document.getElementById('tab-' + btn.dataset.tab);
+        if (target) {
+          target.classList.add('active');
+          // Re-observe reveals inside newly shown tab
+          target.querySelectorAll('.reveal:not(.visible)').forEach(el => revealObserver.observe(el));
+        }
+      });
+    });
+
+    // ========== Booking form ==========
+    const bookingForm = document.getElementById('bookingForm');
+    if (bookingForm) {
+      bookingForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        bookingForm.parentElement.innerHTML =
+          '<div style="text-align:center; padding: 48px 0;">' +
+          '<div style="color:var(--gold); font-family:\'Cormorant Garamond\', serif; font-size:1.8rem; margin-bottom:16px;">Köszönjük foglalását.</div>' +
+          '<p style="font-family:\'Jost\', sans-serif; font-weight:300; color:var(--muted);">Hamarosan felvesszük Önnel a kapcsolatot megerősítés céljából.</p>' +
+          '</div>';
+      });
+    }
+
+    // ========== Hero Slideshow ==========
+    const heroSlides = [
+      {
+        img: 'images/101774.jpg',
+        tag: 'BALATONALMÁDI · ALAPÍTVA 1928',
+        lines: ['Ahol a Balaton', 'és az elegancia', 'találkozik'],
+        desc: 'Közel száz éve fogadjuk vendégeinket az almádi Öregparkban. Asztalainknál a Balaton illata és a balatoni gasztronómia legjava vár.'
+      },
+      {
+        img: 'images/processed-EE38D10B-7270-432F-A63A-CEA72030517A.jpeg',
+        tag: 'BALATONALMÁDI · ALAPÍTVA 1928',
+        lines: ['Különleges alkalmak', 'különleges helyen'],
+        desc: 'Teraszunkon és kertünkben minden esemény egyedi élménnyé válik — a Balaton szellőjében.'
+      },
+      {
+        img: 'images/processed-F3D1F801-CC25-4799-9882-D7EB1ED8CC79.jpeg',
+        tag: 'BALATONALMÁDI · ALAPÍTVA 1928',
+        lines: ['Egy pillanat,', 'ami marad'],
+        desc: 'Házi sütemények, frissen pörkölt kávé — a teraszon, a Balaton szellőjében.'
+      },
+      {
+        img: 'images/processed-AA44504B-4DD2-44C2-ABBA-4948886BC9C9.jpeg',
+        tag: 'BALATONALMÁDI · ALAPÍTVA 1928',
+        lines: ['Különleges alkalmak', 'különleges helyen'],
+        desc: 'Teraszunkon és kertünkben minden esemény egyedi élménnyé válik — a Balaton szellőjében.'
+      },
+      {
+        img: 'images/467324343_122155054376321391_3276993850606292515_n.jpg',
+        tag: 'BALATONALMÁDI · ALAPÍTVA 1928',
+        lines: ['Közel száz éve', 'várjuk vendégeinket'],
+        desc: 'Nyáron a terasz, télen a meleg belső tér — a Liget minden évszakban otthont ad.'
+      }
+    ];
+
+    let currentSlide = 0;
+    let slideInterval;
+    const slideBg = document.getElementById('heroBg');
+    const dotsContainer = document.getElementById('heroDots');
+    const heroContent = document.querySelector('.hero-content');
+    const heroTag = heroContent.querySelector('.hero-tag');
+    const heroH1 = heroContent.querySelector('h1');
+    const heroDesc = heroContent.querySelector('.hero-desc');
+
+    function goToSlide(index) {
+      const newIndex = (index + heroSlides.length) % heroSlides.length;
+      if (newIndex === currentSlide && slideBg.style.backgroundImage) return;
+      currentSlide = newIndex;
+      const slide = heroSlides[currentSlide];
+
+      slideBg.style.backgroundImage = `url('${slide.img}')`;
+      document.querySelectorAll('.hero-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === currentSlide);
+      });
+
+      // Fade out content
+      heroContent.style.opacity = '0';
+      setTimeout(() => {
+        heroTag.textContent = slide.tag;
+        heroH1.innerHTML = slide.lines.map(l => `<span class="hero-line visible">${l}</span>`).join('');
+        heroDesc.textContent = slide.desc;
+        heroContent.style.opacity = '1';
+      }, 300);
+    }
+
+    function startSlideshow() {
+      clearInterval(slideInterval);
+      slideInterval = setInterval(() => goToSlide(currentSlide + 1), 7000);
+    }
+
+    heroSlides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'hero-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', `${i + 1}. kép`);
+      dot.addEventListener('click', () => { goToSlide(i); startSlideshow(); });
+      dotsContainer.appendChild(dot);
+    });
+
+    goToSlide(0);
+    startSlideshow();
+
+    const heroPrev = document.getElementById('heroPrev');
+    const heroNext = document.getElementById('heroNext');
+    if (heroPrev && heroNext) {
+      heroPrev.addEventListener('click', () => { goToSlide(currentSlide - 1); startSlideshow(); });
+      heroNext.addEventListener('click', () => { goToSlide(currentSlide + 1); startSlideshow(); });
+    }
+  </script>
+</body>
+</html>
