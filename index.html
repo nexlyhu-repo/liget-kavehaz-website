@@ -1100,6 +1100,111 @@
       font-size: 0.75rem;
       color: var(--muted);
     }
+
+    /* ========== RESPONSIVE — MOBILE FIRST FIXES ========== */
+
+    /* Touch & scroll UX */
+    button, a, .tab-btn, .hero-dot, .hero-arrow {
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+    html {
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* ---- Phones (max 640px) ---- */
+    @media (max-width: 640px) {
+      /* Hero */
+      .hero { min-height: 100svh; }
+      .hero h1 { font-size: clamp(2.2rem, 8vw, 3.2rem); }
+      .hero-desc { font-size: 0.9rem; margin: 20px auto 28px; }
+      .hero-tag { font-size: 0.62rem; letter-spacing: 0.18em; }
+      .hero-content { padding: 0 20px; }
+      .hero-arrow-prev { left: 4px; }
+      .hero-arrow-next { right: 4px; }
+      .hero-arrow svg { width: 28px; height: 28px; }
+      .hero-arrow { padding: 10px; }
+      .hero-dots { bottom: 80px; }
+      .hero-scroll { bottom: 20px; font-size: 1.1rem; }
+      .hero-buttons { gap: 12px; }
+      .hero-buttons .btn-gold,
+      .hero-buttons .btn-gold-outline {
+        padding: 12px 24px;
+        font-size: 0.78rem;
+        min-height: 44px;
+      }
+
+      /* Nav */
+      .nav-inner { padding: 0 16px; height: 60px; }
+      .nav-logo-main { font-size: 1.1rem; letter-spacing: 0.2em; }
+      .nav-logo-sub { font-size: 0.5rem; }
+
+      /* Identity strip */
+      .identity-title { font-size: 1.2rem; }
+      .identity-text { font-size: 0.82rem; }
+
+      /* Étlap */
+      .tab-nav { gap: 4px; margin: 24px 0 32px; }
+      .tab-btn { font-size: 0.62rem; padding: 8px 10px; letter-spacing: 0.1em; }
+      .menu-item { flex-wrap: wrap; gap: 4px; padding: 14px 0; }
+      .menu-item-name { font-size: 1.05rem; }
+      .menu-item-price { margin-left: 0; font-size: 0.82rem; }
+      .menu-item-desc { font-size: 0.75rem; }
+      .menu-category { font-size: 0.62rem; margin: 24px 0 12px; }
+
+      /* Történetünk */
+      .story-quote { font-size: 1.15rem; padding-left: 16px; }
+      .story-image-wrap { height: 240px; }
+      .story-grid { gap: 32px; margin-top: 32px; }
+
+      /* Rendezvények */
+      .event-card { padding: 28px 20px; }
+      .event-process { margin-top: 40px; }
+      .event-process-steps { gap: 24px; }
+
+      /* Galéria */
+      .gallery-grid { margin-top: 32px; gap: 6px; }
+      .gallery-item img { min-height: 140px; }
+
+      /* Cake / Sütemény tab */
+      .cake-img { height: 220px; }
+      .cake-img-small { height: 180px; }
+      .cake-section-inner { gap: 28px; }
+      .cake-desc { font-size: 0.85rem; }
+
+      /* Partners */
+      .partners-strip { padding: 56px 0; }
+      .partners-subtitle { font-size: 0.82rem; margin-bottom: 36px; }
+      .partner-name { font-size: 1.05rem; }
+      .partner-desc { font-size: 0.78rem; }
+
+      /* Foglalás */
+      .booking-info-text { max-width: 100%; }
+
+      /* Footer */
+      footer { padding: 48px 0 24px; }
+    }
+
+    /* ---- Very small phones (max 400px) ---- */
+    @media (max-width: 400px) {
+      .hero h1 { font-size: 2rem; }
+      .hero-desc { font-size: 0.82rem; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-grid .featured { grid-row: span 1; }
+      .gallery-item img { min-height: 180px; }
+      .tab-btn { font-size: 0.58rem; padding: 7px 8px; }
+      .nav-logo-main { font-size: 1rem; }
+      h2 { font-size: clamp(1.6rem, 6vw, 2.5rem); }
+    }
+
+    /* ---- Tablet tweaks (641px – 900px) ---- */
+    @media (min-width: 641px) and (max-width: 900px) {
+      .hero-arrow-prev { left: 12px; }
+      .hero-arrow-next { right: 12px; }
+      .hero h1 { font-size: clamp(2.8rem, 5vw, 4.5rem); }
+      .gallery-item img { min-height: 180px; }
+      .cake-img { height: 280px; }
+    }
   </style>
 </head>
 <body>
@@ -2319,6 +2424,23 @@
       heroPrev.addEventListener('click', () => { goToSlide(currentSlide - 1); startSlideshow(); });
       heroNext.addEventListener('click', () => { goToSlide(currentSlide + 1); startSlideshow(); });
     }
+
+    // ========== Touch swipe for hero slideshow ==========
+    const heroEl = document.querySelector('.hero');
+    let touchStartX = 0;
+    let touchEndX = 0;
+    heroEl.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    heroEl.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) { goToSlide(currentSlide + 1); }
+        else { goToSlide(currentSlide - 1); }
+        startSlideshow();
+      }
+    }, { passive: true });
   </script>
 </body>
 </html>
