@@ -3,4 +3,5 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/ligetkav/public_html/
     - /bin/cp -R index.html $DEPLOYPATH
+    - /bin/cp -R informaciok.html $DEPLOYPATH
     - /bin/cp -R images $DEPLOYPATH
